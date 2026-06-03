@@ -4,105 +4,50 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Autori</title>
-    <link href="assets/css/opere_admin.css" rel="stylesheet">
-    <script src="assets/js/autori_admin.js" defer></script>
+    <link href="/assets/css/opere_admin.css" rel="stylesheet">
 </head>
 <body>
     <main class="main">
         <div class="main-opere">
-            <form id="form-filtri">
+            <form th:method="post">
                 <div class="filter">
                     <div class="add-search">
                         <div>
                             <label>Barra di ricerca</label>
-                            <input type="text">
+                            <input th:if="${src != null}" type="text" name="src" th:value="${src}">
+                            <input th:unless="${src != null}" type="text" name="src">
                         </div>
                         <div>
                             <button id="search" type="submit">Applica filtri</button>
-                            <button id="add" type="button">Aggiungi un autore</button>
+                            <a th:href="@{/autori/auth_add}"><button id="add" type="button">Aggiungi un autore</button></a>
                         </div>
                     </div>
                 </div>
             </form>
             
             <div class="opere-wrapper">
-                
+                <th:block th:each="autore: ${autori}">
+                    <div class="opera-card">
+                        
+                        <div class="info-gen" style="margin-top: 10px;">
+                            <p><strong>ID:</strong> <span class="autore-id" th:text="${autore.id}"></span></p>
+                            <h3 class="autore-nome-cognome" th:text="${autore.nome} + ' ' + ${autore.cognome}"></h3>
+                            <p><strong>Data di Nascita:</strong> <span class="autore-nascita" th:text="${autore.dataNascita}"></span></p>
+                            
+                            
+                            <p th:if="${autore.dataMorte != null}"><strong>Data di Morte:</strong> <span class="autore-morte" th:text="${autore.dataMorte}"></span></p>
+                            <p th:unless="${autore.dataMorte != null}"></p>
+                        </div>
+
+                        <div class="operations">
+                            <hr>
+                            <a th:href="@{/autori/auth_update(a = ${autore.id})}"><button type="button" class="btn-modifica">Modifica</button></a>
+                            <a th:href="@{/autori/auth_delete(a = ${autore.id})}"><button type="button" class="btn-cancella">Cancella</button></a>
+                        </div>
+                    </div>
+                </th:block>
             </div>
             
-        </div>
-        <div class="main-choose">
-            <div class="choose-content">
-                <div id="choose-default">
-                    <h2>Seleziona un'azione</h2>
-                    <p>Clicca su modifica o cancella da una card.</p>
-                </div>
-
-                <form id="form-aggiungi-autore">
-                    <div id="choose-aggiungi" class="choose-panel hidden">
-
-                        <h2>Aggiungi autore</h2>
-
-                        <label for="aggiungi-nome">Nome</label>
-                        <input id="aggiungi-nome" type="text" required minlength="2" maxlength="100">
-
-                        <label for="aggiungi-cognome">Cognome</label>
-                        <input id="aggiungi-cognome" type="text" required minlength="2" maxlength="100">
-
-                        <label for="aggiungi-nascita">Data di nascita</label>
-                        <input id="aggiungi-nascita" type="date" required>
-
-                        <label for="aggiungi-morte">Data di morte</label>
-                        <input id="aggiungi-morte" type="date">
-
-                        <div class="choose-actions">
-                            <button type="button" class="btn-annulla-choose">Annulla</button>
-                            <button type="submit">Crea</button>
-                        </div>
-                    </div>
-                </form>
-
-                <form id="form-modifica-autore">
-                    <div id="choose-modifica" class="choose-panel hidden">
-
-                        <h2>Modifica autore</h2>
-
-                        <label for="modifica-id">ID Autore</label>
-                        <input id="modifica-id" type="text" readonly>
-
-                        <label for="modifica-nome">Nome</label>
-                        <input id="modifica-nome" type="text" required minlength="2" maxlength="100">
-
-                        <label for="modifica-cognome">Cognome</label>
-                        <input id="modifica-cognome" type="text" required minlength="2" maxlength="100">
-
-                        <label for="modifica-nascita">Data di nascita</label>
-                        <input id="modifica-nascita" type="date" required>
-
-                        <label for="modifica-morte">Data di morte</label>
-                        <input id="modifica-morte" type="date">
-
-                        <div class="choose-actions">
-                            <button type="button" class="btn-annulla-choose">Annulla</button>
-                            <button type="submit">Salva</button>
-                        </div>
-
-                    </div>
-                </form>
-
-                <form id="form-cancella-autore">
-                    <div id="choose-cancella" class="choose-panel hidden">
-                        <h2>Cancella autore</h2>
-                        <label for="cancella-id">ID Autore</label>
-                        <input id="cancella-id" type="text" readonly>
-                        <p id="delete-message">Vuoi davvero cancellare questo autore?</p>
-
-                        <div class="choose-actions">
-                            <button type="button" class="btn-annulla-choose">Annulla</button>
-                            <button type="submit">Conferma cancellazione</button>
-                        </div>
-                    </div>
-                </form>
-            </div>
         </div>
     </main>
 </body>

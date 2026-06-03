@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Autori</title>
+    <link href="/assets/css/opere_admin.css" rel="stylesheet">
+</head>
+<body>
+    <main class="main">
+        <form th:object="${autore}" method="post">
+            <div id="choose-modifica" class="choose-panel">
+
+                <h2>Modifica autore</h2>
+
+                <label for="modifica-id">ID Autore</label>
+                <input id="modifica-id" type="text" th:field="*{id}" readonly>
+
+                <label for="aggiungi-nome">Nome</label>
+                <input id="aggiungi-nome" th:field="*{nome}" type="text" required minlength="2" maxlength="50">
+
+                <label for="aggiungi-cognome">Cognome</label>
+                <input id="aggiungi-cognome" th:field="*{cognome}" type="text" required minlength="2" maxlength="50">
+
+                <label for="aggiungi-nascita">Data di nascita</label>
+                <input id="aggiungi-nascita" th:field="*{dataNascita}" type="date" required>
+
+                <label for="aggiungi-morte">Data di morte</label>
+                <input id="aggiungi-morte" th:field="*{dataMorte}" type="date">
+
+                <div class="choose-actions">
+                    <a th:href="@{/autori/all}" class="btn-annulla-choose">Annulla</a>
+                    <button type="submit">Salva</button>
+                </div>
+
+            </div>
+        </form>
+    </main>
+</body>
+</html>

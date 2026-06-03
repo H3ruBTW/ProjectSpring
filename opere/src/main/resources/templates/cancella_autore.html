@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Autori</title>
+    <link href="/assets/css/opere_admin.css" rel="stylesheet">
+</head>
+<body>
+    <main class="main">
+        <form method="post">
+            <div id="choose-cancella" class="choose-panel">
+                <h2>Cancella autore</h2>
+                <label for="cancella-id">ID Autore</label>
+                <input id="cancella-id" type="text" readonly name="id" th:value="${autore.id}">
+                <h3 class="autore-nome-cognome" th:text="${autore.nome} + ' ' + ${autore.cognome}"></h3>
+                <p><strong>Data di Nascita:</strong> <span class="autore-nascita" th:text="${autore.dataNascita}"></span></p>
+                
+                <p th:if="${autore.dataMorte != null}"><strong>Data di Morte:</strong> <span class="autore-morte" th:text="${autore.dataMorte}"></span></p>
+                <p th:unless="${autore.dataMorte != null}"></p>
+
+                <p id="delete-message">Vuoi davvero cancellare questo autore?</p>
+
+                <div class="choose-actions">
+                    <a href="@{/autori/all}"><button type="button" class="btn-annulla-choose">Annulla</button></a>
+                    <button type="submit">Conferma cancellazione</button>
+                </div>
+            </div>
+        </form>
+    </main>
+</body>
+</html>

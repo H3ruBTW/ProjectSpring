@@ -5,61 +5,58 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Opere</title>
     <link href="assets/css/opere_admin.css" rel="stylesheet">
-    <script src="assets/js/opere_admin.js" defer></script>
 </head>
 <body>
     <main class="main">
-        <div class="main-opere">
-            <form id="form-modifica-opera">
-                <div id="choose-modifica" class="choose-panel">
+        <form id="form-modifica-opera">
+            <div id="choose-modifica" class="choose-panel">
 
-                    <h2>Modifica opera</h2>
+                <h2>Modifica opera</h2>
 
-                    <label for="modifica-id">ID Opera</label>
-                    <input id="modifica-id" type="text" readonly>
+                <label for="modifica-id">ID Opera</label>
+                <input id="modifica-id" type="text" readonly>
 
-                    <label for="modifica-nome">Nome</label>
-                    <input id="modifica-nome" type="text" required minlength="2" maxlength="100">
+                <label for="modifica-nome">Nome</label>
+                <input id="modifica-nome" type="text" required minlength="2" maxlength="100">
 
-                    <label>Autori</label>
-                    <div id="modifica-autori-wrapper" class="autori-wrapper"></div>
-                    <button type="button" id="modifica-autore-btn">Aggiungi autore</button>
+                <label>Autori</label>
+                <div id="modifica-autori-wrapper" class="autori-wrapper"></div>
+                <button type="button" id="modifica-autore-btn">Aggiungi autore</button>
 
-                    <label for="modifica-anno">Anno</label>
-                    <input id="modifica-anno" type="number" required min="1000" max="9999">
+                <label for="modifica-anno">Anno</label>
+                <input id="modifica-anno" type="number" required min="1000" max="9999">
 
-                    <label for="modifica-img">Immagine</label>
-                    <input id="modifica-img" type="file" accept="image/*">
+                <label for="modifica-img">Immagine</label>
+                <input id="modifica-img" type="file" accept="image/*">
 
-                    <label for="modifica-descrizione">Descrizione</label>
-                    <textarea id="modifica-descrizione" rows="5" minlength="10" maxlength="300" required></textarea>
+                <label for="modifica-descrizione">Descrizione</label>
+                <textarea id="modifica-descrizione" rows="5" minlength="10" maxlength="300" required></textarea>
 
-                    <label for="modifica-stanza">Stanza</label>
-                    <select id="modifica-stanza" required>
-                        <option value="">Seleziona una stanza</option>
-                        <option value="ST01">Sala Impressionisti</option>
-                        <option value="ST02">Sala Reperti Storici</option>
-                        <option value="ST03">Sala Arte Contemporanea</option>
-                    </select>
+                <label for="modifica-stanza">Stanza</label>
+                <select id="modifica-stanza" required>
+                    <option value="">Seleziona una stanza</option>
+                    <option value="ST01">Sala Impressionisti</option>
+                    <option value="ST02">Sala Reperti Storici</option>
+                    <option value="ST03">Sala Arte Contemporanea</option>
+                </select>
 
-                    <label class="toggle-field" for="modifica-restauro">
-                        <span>In restauro</span>
-                        <input id="modifica-restauro" type="checkbox">
-                    </label>
+                <label class="toggle-field" for="modifica-restauro">
+                    <span>In restauro</span>
+                    <input id="modifica-restauro" type="checkbox">
+                </label>
 
-                    <label class="toggle-field" for="modifica-disattivato">
-                        <span>Disattivata</span>
-                        <input id="modifica-disattivato" type="checkbox">
-                    </label>
+                <label class="toggle-field" for="modifica-disattivato">
+                    <span>Disattivata</span>
+                    <input id="modifica-disattivato" type="checkbox">
+                </label>
 
-                    <div class="choose-actions">
-                        <button type="button" class="btn-annulla-choose">Annulla</button>
-                        <button type="submit">Salva</button>
-                    </div>
-
+                <div class="choose-actions">
+                    <button type="button" class="btn-annulla-choose">Annulla</button>
+                    <button type="submit">Salva</button>
                 </div>
-            </form>
-        </div>
+
+            </div>
+        </form>
     </main>
 </body>
 </html>
