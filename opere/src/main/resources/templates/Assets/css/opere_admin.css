@@ -1,0 +1,336 @@
+body {
+    padding: 0;
+    margin: 0;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+.main {
+    margin-top: 20px;
+    margin-left: 20px;
+    margin-right: 20px;
+    border-top-left-radius: 20px;
+    border-top-right-radius: 20px;
+    background-color: rgb(182, 182, 182);
+    min-height: calc(100vh - 20px);
+    display: flex;
+}
+
+.top button {
+    width: 200px;
+    height: 40px;
+    text-align: end;
+}
+
+.top {
+    width: 100%;
+}
+
+.logo-img {
+    width: 100%;
+    height: 75px;
+    border: 1px solid black;
+    object-fit: cover;
+}
+
+.nav_bar {
+    margin-top: 50px;
+    display: flex;
+    flex-direction: column;
+    align-items: end;
+    gap: 10px;
+}
+
+.div-others {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 20px;
+}
+
+.div-others button {
+    width: 125px;
+    height: 40px;
+}
+
+.main-choose {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    display: flex;
+    border-left: 1px solid black;
+    width: calc(25vw - 10px);
+    height: calc(100vh - 40px);
+    padding: 10px;
+}
+
+.choose-content {
+    width: 100%;
+    height: 100%;
+    overflow-y: auto;
+    overflow-x: hidden;
+}
+
+.main-opere {
+    display: flex;
+    flex-direction: column;
+    width: calc(100% - (25vw - 10px));
+}
+
+.main-opere .opere-wrapper {
+    display: flex;
+    padding: 30px;
+    flex-wrap: wrap;
+    gap: 20px;
+}
+
+.main-opere .filter {
+    display: flex;
+    padding: 30px;
+    flex-wrap: wrap;
+    gap: 20px;
+    width: 100%;
+    background-color: #e0e0e0;
+    border-top-left-radius: 10px;
+}
+
+.filter .add-search {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: flex-end;
+    width: 100%;
+    gap: 15px;
+}
+
+.add-search > div, .other-filters > div {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+.add-search > div:first-child {
+    flex-grow: 1;
+}
+
+.add-search > div:last-child {
+    flex-direction: row;
+    gap: 10px;
+}
+
+.add-search input, .other-filters input {
+    height: 35px;
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 14px;
+}
+
+.add-search button {
+    height: 35px;
+    padding: 0 15px;
+    cursor: pointer;
+    border-radius: 5px;
+    border: 1px solid #999;
+    font-weight: bold;
+}
+
+.filter .other-filters {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    width: 100%;
+}
+
+.other-filters > div {
+    flex: 1;
+    min-width: 180px;
+}
+
+@media (max-width: 768px) {
+    .main {
+        flex-direction: column;
+    }
+    .main-opere {
+        width: 100%;
+    }
+    .main-choose {
+        width: 100%;
+        position: static;
+        height: auto;
+        border-left: none;
+        border-top: 1px solid black;
+    }
+    .filter .add-search, .add-search > div:last-child {
+        flex-direction: column;
+        align-items: stretch;
+    }
+    .add-search > div:last-child {
+        gap: 10px;
+    }
+    .add-search button {
+        width: 100%;
+    }
+    .filter .other-filters {
+        flex-direction: column;
+    }
+    .other-filters > div {
+        width: 100%;
+    }
+}
+
+.opera-card{
+    display: flex;
+    width: 280px;
+    min-height: 350px;
+    border: 1px solid black;
+    flex-direction: column;
+    padding: 10px;
+    justify-content: space-between;
+    border-radius: 10px;
+    background-color: grey;
+    flex-grow: 1.5;
+}
+
+.opera-card .info-gen{
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.opera-card .operations{
+    display: flex;
+    flex-direction: column;
+    text-align: end;
+    gap: 10px;
+}
+
+.opera-card .operations hr{
+    width: 100%;
+}
+
+.img-card {
+    align-self: center;
+    width: 100px;
+    height: 100px;
+    object-fit: contain;
+    border: 1px solid black;
+}
+
+.choose-content{
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    gap: 15px;
+}
+
+.choose-panel{
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    width: 100%;
+}
+
+.hidden{
+    display: none;
+}
+
+.choose-actions{
+    display: flex;
+    gap: 10px;
+    margin-top: 10px;
+}
+
+.choose-panel input{
+    width: 100%;
+    height: 35px;
+    padding: 8px;
+}
+
+.opera-nome{
+    margin: 0;
+    font-size: 20px;
+}
+
+.opera-card .info-gen p{
+    margin: 0;
+}
+
+.toggle-field{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+    width: 100%;
+}
+
+.stato-opera{
+    font-weight: bold;
+}
+
+.opera-id{
+    font-weight: bold;
+}
+
+#modifica-id{
+    background-color: #d9d9d9;
+    cursor: not-allowed;
+}
+
+.autori-wrapper{
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    width: 100%;
+}
+
+.autore-row{
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    padding: 8px;
+    border: 1px solid black;
+    border-radius: 8px;
+}
+
+.autore-row input{
+    width: 100%;
+    height: 35px;
+    padding: 8px;
+}
+
+.btn-rimuovi-autore{
+    align-self: flex-end;
+    width: 120px;
+}
+
+.autore-error{
+    color: red;
+    font-size: 14px;
+    margin: 0;
+}
+
+.autore-row{
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    padding: 10px;
+    border: 1px solid black;
+    border-radius: 8px;
+    margin-bottom: 10px;
+}
+
+.autore-error{
+    color: red;
+    font-size: 14px;
+    margin: 0;
+}
+
+.autore-unknown-toggle{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
