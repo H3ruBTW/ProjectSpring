@@ -1,336 +1,426 @@
-body {
-    padding: 0;
-    margin: 0;
+/* =========================================
+   VARIABILI GLOBALI (Colori e Spaziature)
+   ========================================= */
+:root {
+    --primary-color: #2563eb;       /* Blu principale per azioni primarie */
+    --primary-hover: #1d4ed8;
+    --danger-color: #dc2626;        /* Rosso per cancellazione/errori */
+    --danger-hover: #b91c1c;
+    --warning-color: #d97706;       /* Arancione per le modifiche */
+    --warning-hover: #b45309;
+    --secondary-color: #6b7280;     /* Grigio per annullamento/azioni secondarie */
+    --secondary-hover: #4b5563;
+    
+    --bg-color: #f3f4f6;            /* Sfondo generale della pagina */
+    --card-bg: #ffffff;             /* Sfondo dei pannelli e delle card */
+    --text-main: #1f2937;
+    --text-muted: #6b7280;
+    --border-color: #e5e7eb;
+    --input-focus: rgba(37, 99, 235, 0.2);
+    
+    --border-radius: 8px;
+    --transition-speed: 0.2s;
 }
 
+/* =========================================
+   RESET E BASE
+   ========================================= */
 * {
     box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    background-color: var(--bg-color);
+    color: var(--text-main);
+    line-height: 1.5;
 }
 
 .main {
-    margin-top: 20px;
-    margin-left: 20px;
-    margin-right: 20px;
-    border-top-left-radius: 20px;
-    border-top-right-radius: 20px;
-    background-color: rgb(182, 182, 182);
-    min-height: calc(100vh - 20px);
-    display: flex;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 30px 20px;
 }
 
-.top button {
-    width: 200px;
-    height: 40px;
-    text-align: end;
+a {
+    text-decoration: none;
 }
 
-.top {
-    width: 100%;
-}
-
-.logo-img {
-    width: 100%;
-    height: 75px;
-    border: 1px solid black;
-    object-fit: cover;
-}
-
-.nav_bar {
-    margin-top: 50px;
-    display: flex;
-    flex-direction: column;
-    align-items: end;
-    gap: 10px;
-}
-
-.div-others {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 10px;
+/* =========================================
+   TIPOGRAFIA
+   ========================================= */
+h2 {
+    color: var(--text-main);
     margin-bottom: 20px;
+    padding-bottom: 10px;
+    border-bottom: 2px solid var(--border-color);
+    font-size: 1.5rem;
 }
 
-.div-others button {
-    width: 125px;
-    height: 40px;
+h3 {
+    font-size: 1.25rem;
+    color: var(--primary-color);
+    margin-bottom: 5px;
 }
 
-.main-choose {
-    position: fixed;
-    top: 20px;
-    right: 20px;
+p {
+    margin-bottom: 8px;
+}
+
+strong {
+    color: var(--text-main);
+}
+
+/* =========================================
+   FORM E INPUTS (Pannelli Aggiungi/Modifica/Cancella)
+   ========================================= */
+.choose-panel {
+    background-color: var(--card-bg);
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 30px;
+    border-radius: var(--border-radius);
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+}
+
+label {
+    display: block;
+    font-size: 0.9rem;
+    font-weight: 600;
+    margin-bottom: 5px;
+    color: var(--text-main);
+}
+
+input[type="text"],
+input[type="date"],
+input[type="number"],
+input[type="file"],
+select,
+textarea {
+    width: 100%;
+    padding: 10px 12px;
+    margin-bottom: 20px;
+    border: 1px solid var(--border-color);
+    border-radius: 6px;
+    font-size: 1rem;
+    color: var(--text-main);
+    background-color: #fff;
+    transition: border-color var(--transition-speed), box-shadow var(--transition-speed);
+}
+
+textarea {
+    resize: vertical;
+}
+
+input:focus,
+select:focus,
+textarea:focus {
+    outline: none;
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 3px var(--input-focus);
+}
+
+/* Stile per i campi in sola lettura (es. ID Autore/Opera) */
+input[readonly] {
+    background-color: var(--bg-color);
+    cursor: not-allowed;
+    color: var(--text-muted);
+}
+
+/* Toggle per checkbox (Disattivata, In restauro) */
+.toggle-field {
     display: flex;
-    border-left: 1px solid black;
-    width: calc(25vw - 10px);
-    height: calc(100vh - 40px);
+    justify-content: space-between;
+    align-items: center;
+    background-color: var(--bg-color);
+    padding: 12px 15px;
+    border-radius: 6px;
+    margin-bottom: 20px;
+    border: 1px solid var(--border-color);
+    cursor: pointer;
+}
+
+.toggle-field span {
+    font-weight: 600;
+}
+
+.toggle-field input[type="checkbox"] {
+    width: 20px;
+    height: 20px;
+    margin: 0;
+    cursor: pointer;
+}
+
+/* Wrapper per l'aggiunta dinamica di autori */
+.autori-wrapper {
+    min-height: 50px;
+    border: 2px dashed var(--border-color);
+    border-radius: 6px;
     padding: 10px;
+    margin-bottom: 10px;
+    background-color: #fafafa;
 }
 
-.choose-content {
-    width: 100%;
-    height: 100%;
-    overflow-y: auto;
-    overflow-x: hidden;
+/* Errori del form (gestione Thymeleaf) */
+p[style*="color: red;"] {
+    font-size: 0.85rem;
+    margin-top: -15px;
+    margin-bottom: 15px;
+    font-weight: 600;
 }
 
-.main-opere {
+#delete-message {
+    color: var(--danger-color);
+    font-size: 1.1rem;
+    font-weight: bold;
+    text-align: center;
+    margin: 30px 0 20px 0;
+    padding: 15px;
+    background-color: #fef2f2;
+    border-radius: 6px;
+    border: 1px solid #fecaca;
+}
+
+/* =========================================
+   BOTTONI
+   ========================================= */
+button {
+    padding: 10px 16px;
+    font-size: 0.95rem;
+    font-weight: 600;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: background-color var(--transition-speed), transform 0.1s;
+    display: inline-block;
+    text-align: center;
+}
+
+button:active {
+    transform: scale(0.98);
+}
+
+/* Bottone Primario di default (Crea, Salva, Applica Filtri, Aggiungi) */
+button[type="submit"],
+#add,
+#search,
+#aggiungi-autore-btn,
+#modifica-autore-btn {
+    background-color: var(--primary-color);
+    color: white;
+}
+
+button[type="submit"]:hover,
+#add:hover,
+#search:hover,
+#aggiungi-autore-btn:hover,
+#modifica-autore-btn:hover {
+    background-color: var(--primary-hover);
+}
+
+/* Azioni form (Annulla / Salva) */
+.choose-actions {
     display: flex;
-    flex-direction: column;
-    width: 100%
+    justify-content: flex-end;
+    gap: 12px;
+    margin-top: 30px;
+    border-top: 1px solid var(--border-color);
+    padding-top: 20px;
 }
 
-.main-opere .opere-wrapper {
-    display: flex;
-    padding: 30px;
-    flex-wrap: wrap;
-    gap: 20px;
+.btn-annulla-choose {
+    background-color: var(--secondary-color);
+    color: white;
+    background-color: red;
+    padding: 0.5em;
+    border-radius: 8px;
 }
 
-.main-opere .filter {
-    display: flex;
-    padding: 30px;
-    flex-wrap: wrap;
-    gap: 20px;
-    width: 100%;
-    background-color: #e0e0e0;
-    border-top-left-radius: 10px;
+.btn-annulla-choose:hover {
+    background-color: var(--secondary-hover);
 }
 
-.filter .add-search {
+/* Bottoni di conferma cancellazione */
+button[type="submit"]:has(~ .btn-annulla-choose), /* Fallback logico */
+#choose-cancella button[type="submit"],
+#choose-cancella button:not(.btn-annulla-choose) {
+    background-color: var(--danger-color);
+    color: white;
+}
+
+#choose-cancella button[type="submit"]:hover,
+#choose-cancella button:not(.btn-annulla-choose):hover {
+    background-color: var(--danger-hover);
+}
+
+/* =========================================
+   LISTA E DASHBOARD (Admin Page)
+   ========================================= */
+/* Area Filtri */
+.filter {
+    background-color: var(--card-bg);
+    padding: 20px;
+    border-radius: var(--border-radius);
+    box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1);
+    margin-bottom: 30px;
+}
+
+.add-search {
     display: flex;
-    flex-direction: row;
     justify-content: space-between;
     align-items: flex-end;
-    width: 100%;
-    gap: 15px;
-}
-
-.add-search > div, .other-filters > div {
-    display: flex;
-    flex-direction: column;
-    gap: 5px;
-}
-
-.add-search > div:first-child {
-    flex-grow: 1;
-}
-
-.add-search > div:last-child {
-    flex-direction: row;
-    gap: 10px;
-}
-
-.add-search input, .other-filters input {
-    height: 35px;
-    padding: 8px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    font-size: 14px;
-}
-
-.add-search button {
-    height: 35px;
-    padding: 0 15px;
-    cursor: pointer;
-    border-radius: 5px;
-    border: 1px solid #999;
-    font-weight: bold;
-}
-
-.filter .other-filters {
-    display: flex;
     flex-wrap: wrap;
     gap: 20px;
-    width: 100%;
+}
+
+.add-search > div {
+    flex: 1;
+    min-width: 250px;
+}
+
+.add-search input {
+    margin-bottom: 0; /* Rimuove il margine basso del form base */
+}
+
+/* Pulsanti dei filtri allineati a destra */
+.add-search > div:last-child {
+    display: flex;
+    justify-content: flex-end;
+    gap: 15px;
+    flex: 0 0 auto;
+}
+
+.other-filters {
+    display: flex;
+    gap: 20px;
+    margin-top: 20px;
+    padding-top: 20px;
+    border-top: 1px solid var(--border-color);
+    flex-wrap: wrap;
 }
 
 .other-filters > div {
     flex: 1;
-    min-width: 180px;
+    min-width: 200px;
 }
 
+.other-filters input {
+    margin-bottom: 0;
+}
+
+/* Griglia per le Card (Autori / Opere) */
+.opere-wrapper {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+    gap: 25px;
+}
+
+/* Stile della singola Card */
+.opera-card {
+    background-color: var(--card-bg);
+    border-radius: var(--border-radius);
+    padding: 20px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+    border: 1px solid var(--border-color);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    transition: box-shadow var(--transition-speed);
+}
+
+.opera-card:hover {
+    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+}
+
+.info-gen {
+    flex-grow: 1;
+}
+
+.info-gen p {
+    color: var(--text-muted);
+    font-size: 0.95rem;
+}
+
+/* Operazioni (Modifica / Cancella) nelle card */
+.operations {
+    margin-top: 20px;
+}
+
+.operations hr {
+    border: 0;
+    border-top: 1px solid var(--border-color);
+    margin-bottom: 15px;
+}
+
+.operations-flex { /* Classe di utilità se usata, altrimenti stile applicato ai div interni */
+    display: flex;
+    gap: 10px;
+}
+
+/* Fix per i pulsanti dentro i tag <a> per renderli larghi uguali nelle card */
+.opera-card .operations {
+    display: flex;
+    flex-direction: column;
+}
+.opera-card .operations > div,
+.opera-card .operations form {
+    display: flex;
+    gap: 10px;
+    width: 100%;
+}
+.opera-card .operations a {
+    flex: 1;
+}
+
+.btn-modifica, .btn-cancella {
+    width: 100%;
+    margin-bottom: 0.5em;
+}
+
+.btn-modifica {
+    background-color: var(--warning-color);
+    color: white;
+}
+
+.btn-modifica:hover {
+    background-color: var(--warning-hover);
+}
+
+.btn-cancella {
+    background-color: var(--danger-color);
+    color: white;
+}
+
+.btn-cancella:hover {
+    background-color: var(--danger-hover);
+}
+
+/* =========================================
+   MEDIA QUERIES (Responsiveness)
+   ========================================= */
 @media (max-width: 768px) {
-    .main {
-        flex-direction: column;
-    }
-    .main-opere {
-        width: 100%;
-    }
-    .main-choose {
-        width: 100%;
-        position: static;
-        height: auto;
-        border-left: none;
-        border-top: 1px solid black;
-    }
-    .filter .add-search, .add-search > div:last-child {
+    .add-search, .other-filters {
         flex-direction: column;
         align-items: stretch;
     }
+    
     .add-search > div:last-child {
-        gap: 10px;
+        justify-content: stretch;
+        flex-direction: column;
     }
+    
     .add-search button {
         width: 100%;
     }
-    .filter .other-filters {
-        flex-direction: column;
+
+    .choose-actions {
+        flex-direction: column-reverse;
     }
-    .other-filters > div {
+
+    .choose-actions button, .choose-actions a {
         width: 100%;
+        text-align: center;
     }
-}
-
-.opera-card{
-    display: flex;
-    width: 280px;
-    min-height: 350px;
-    border: 1px solid black;
-    flex-direction: column;
-    padding: 10px;
-    justify-content: space-between;
-    border-radius: 10px;
-    background-color: grey;
-    flex-grow: 1.5;
-}
-
-.opera-card .info-gen{
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-}
-
-.opera-card .operations{
-    display: flex;
-    flex-direction: column;
-    text-align: end;
-    gap: 10px;
-}
-
-.opera-card .operations hr{
-    width: 100%;
-}
-
-.img-card {
-    align-self: center;
-    width: 100px;
-    height: 100px;
-    object-fit: contain;
-    border: 1px solid black;
-}
-
-.choose-content{
-    display: flex;
-    flex-direction: column;
-    width: 100%;
-    gap: 15px;
-}
-
-.choose-panel{
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-    width: 100%;
-}
-
-.hidden{
-    display: none;
-}
-
-.choose-actions{
-    display: flex;
-    gap: 10px;
-    margin-top: 10px;
-}
-
-.choose-panel input{
-    width: 100%;
-    height: 35px;
-    padding: 8px;
-}
-
-.opera-nome{
-    margin: 0;
-    font-size: 20px;
-}
-
-.opera-card .info-gen p{
-    margin: 0;
-}
-
-.toggle-field{
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 10px;
-    width: 100%;
-}
-
-.stato-opera{
-    font-weight: bold;
-}
-
-.opera-id{
-    font-weight: bold;
-}
-
-#modifica-id{
-    background-color: #d9d9d9;
-    cursor: not-allowed;
-}
-
-.autori-wrapper{
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-    width: 100%;
-}
-
-.autore-row{
-    display: flex;
-    flex-direction: column;
-    gap: 8px;
-    padding: 8px;
-    border: 1px solid black;
-    border-radius: 8px;
-}
-
-.autore-row input{
-    width: 100%;
-    height: 35px;
-    padding: 8px;
-}
-
-.btn-rimuovi-autore{
-    align-self: flex-end;
-    width: 120px;
-}
-
-.autore-error{
-    color: red;
-    font-size: 14px;
-    margin: 0;
-}
-
-.autore-row{
-    display: flex;
-    flex-direction: column;
-    gap: 8px;
-    padding: 10px;
-    border: 1px solid black;
-    border-radius: 8px;
-    margin-bottom: 10px;
-}
-
-.autore-error{
-    color: red;
-    font-size: 14px;
-    margin: 0;
-}
-
-.autore-unknown-toggle{
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
 }

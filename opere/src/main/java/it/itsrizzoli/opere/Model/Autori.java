@@ -1,6 +1,8 @@
 package it.itsrizzoli.opere.Model;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 
 import org.springframework.format.annotation.DateTimeFormat;
 
@@ -9,6 +11,7 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.ManyToMany;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 
@@ -34,6 +37,9 @@ public class Autori {
     @Column(name = "dataMorte")
     @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
     private LocalDate dataMorte;
+
+    @ManyToMany(mappedBy = "autori")
+    private List<Opere> opere = new ArrayList<>();
 
     public Autori(){}
 
@@ -64,6 +70,10 @@ public class Autori {
         return dataMorte;
     }
 
+    public List<Opere> getOpere() {
+        return opere;
+    }
+
     public void setId(Integer id) {
         this.id = id;
     }
@@ -82,5 +92,9 @@ public class Autori {
 
     public void setDataMorte(LocalDate dataMorte) {
         this.dataMorte = dataMorte;
+    }
+
+    public void setOpere(List<Opere> opere) {
+        this.opere = opere;
     }
 }

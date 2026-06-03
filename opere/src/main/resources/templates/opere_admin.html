@@ -4,18 +4,18 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Opere</title>
-    <link href="assets/css/opere_admin.css" rel="stylesheet">
-    <script src="assets/js/opere_admin.js" defer></script>
+    <link href="/assets/css/opere_admin.css" rel="stylesheet">
+    <script src="/assets/js/opere_admin.js" defer></script>
 </head>
 <body>
     <main class="main">
         <div class="main-opere">
-            <form id="form-filtri">
+            <form method="post">
                 <div class="filter">
                     <div class="add-search">
                         <div>
                             <label>Barra di ricerca</label>
-                            <input type="text">
+                            <input type="text" name="src">
                         </div>
                         <div>
                             <button id="search" type="submit">Applica filtri</button>
@@ -24,17 +24,19 @@
                         
                     </div>
                     <div class="other-filters">
-                        <div>
-                            <label>Autore</label>
-                            <input type="text">
+                        <div class="autore-search-box">
+                            <label for="auth_src">Autore</label>
+                            <input type="text" id="auth_src" name="auth_src" autocomplete="off" placeholder="Cerca autore...">
+                            <input type="hidden" id="auth_id" name="auth_id">
+                            <div id="autore-suggestions" class="autore-suggestions"></div>
                         </div>
                         <div>
                             <label>Anno Creazione da</label>
-                            <input type="number">
+                            <input type="number" name="annoda">
                         </div>
                         <div>
                             <label>Anno Creazione a</label>
-                            <input type="number">
+                            <input type="number" name="annoa">
                         </div>
                         
                     </div>
@@ -42,10 +44,33 @@
             </form>
             
             <div class="opere-wrapper">
-                
+                <th:block th:each="opera: ${opere}">
+                    <div class="opera-card">
+                        <img class="img-card" th:src="'assets/imgs/' + ${opera.id} + '.jpg'" th:alt="${opera.nome}">
+
+                        <div class="info-gen">
+                            <p><strong>ID:</strong> <span class="opera-id" th:text="${opera.id}"></span></p>
+                            <h3 class="opera-nome" th:text="${opera.nome}"></h3>
+                            <p><strong>Autore:</strong> <span class="autore" th:each="autore: ${opera.autori}" th:text="'| ' + ${autore.nome} + ' ' + ${autore.cognome} + ' |'"></span></p>
+                            <p th:if="${opera.anno >= 0}"><strong>Anno:</strong> <span class="anno" th:text="${opera.anno} + ' D.C.'"></span></p>
+                            <p th:unless="${opera.anno >= 0}"><strong>Anno:</strong> <span class="anno" th:text="${opera.anno * -1} + ' A.C.'"></span></p>
+                            <p><strong>Stanza:</strong> <span class="stanza" th:text="${opera.getStanza().getNome()}"></span></p>
+                            <p th:if="${opera.disattivato == true}"><strong>Stato:</strong> <span class="stato-opera">Disattivato</span></p>
+                            <p th:unless="${opera.disattivato == true}"><strong>Stato:</strong> <span class="stato-opera">Attivo</span></p>
+                        </div>
+
+                        <div class="operations">
+                            <hr>
+                            <a th:href="@{/opere/opere_update(o = ${opera.id})}"><button type="button" class="btn-modifica">Modifica</button></a>
+                            <a th:href="@{/opere/opere_delete(o = ${opera.id})}"><button type="button" class="btn-cancella">Cancella</button></a>
+                        </div>
+                    </div>
+                </th:block>
             </div>
             
         </div>
     </main>
+
 </body>
+
 </html>

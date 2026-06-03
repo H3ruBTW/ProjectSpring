@@ -1,67 +1,81 @@
-const aggiungiAutoriWrapper = document.getElementById("aggiungi-autori-wrapper");
-const modificaAutoriWrapper = document.getElementById("modifica-autori-wrapper");
-const aggiungiAutoreBtn = document.getElementById("aggiungi-autore-btn");
-const modificaAutoreBtn = document.getElementById("modifica-autore-btn");
+document.addEventListener("DOMContentLoaded", () => {
+    const authorInput = document.getElementById("auth_src");
+    const authorIdInput = document.getElementById("auth_id");
+    const suggestionsBox = document.getElementById("autore-suggestions");
 
+    let debounceTimer;
+    let lastQuery = "";
 
-function creaAutoreRow(nome = "", cognome = "", dataNascita = "", dataMorte = "") {
-    const row = document.createElement("div");
-    row.className = "autore-row";
+    function clearSuggestions() {
+        suggestionsBox.innerHTML = "";
+        suggestionsBox.style.display = "none";
+    }
 
-    row.innerHTML = `
-        <input type="text" class="autore-nome" placeholder="Nome" value="${nome}">
-        <input type="text" class="autore-cognome" placeholder="Cognome" value="${cognome}">
-        <input type="date" class="autore-data-nascita" value="${dataNascita}">
-        <input type="date" class="autore-data-morte" value="${dataMorte}">
-        <button type="button" class="btn-rimuovi-autore">Rimuovi</button>
-        <p class="autore-error hidden">La data di morte non può essere precedente alla data di nascita.</p>
-    `;
+    function showSuggestions(authors) {
+        suggestionsBox.innerHTML = "";
 
-    const removeBtn = row.querySelector(".btn-rimuovi-autore");
-    const nascitaInput = row.querySelector(".autore-data-nascita");
-    const morteInput = row.querySelector(".autore-data-morte");
-    const errorEl = row.querySelector(".autore-error");
+        if (!authors || authors.length === 0) {
+            clearSuggestions();
+            return;
+        }
 
-    function validaDateAutore() {
-        const nascita = nascitaInput.value;
-        const morte = morteInput.value;
+        authors.forEach(author => {
+            const item = document.createElement("div");
+            item.classList.add("suggestion-item");
+            item.textContent = `${author.nome} ${author.cognome}`;
 
-        if (morte !== "" && nascita !== "" && morte < nascita) {
-            morteInput.setCustomValidity("Data di morte non valida");
-            errorEl.classList.remove("hidden");
-        } else {
-            morteInput.setCustomValidity("");
-            errorEl.classList.add("hidden");
+            item.addEventListener("click", () => {
+                authorInput.value = `${author.nome} ${author.cognome}`;
+                authorIdInput.value = author.id;
+                clearSuggestions();
+            });
+
+            suggestionsBox.appendChild(item);
+        });
+
+        suggestionsBox.style.display = "block";
+    }
+
+    async function fetchAuthors(query) {
+        if (!query || query.trim().length < 2) {
+            clearSuggestions();
+            return;
+        }
+
+        lastQuery = query;
+
+        try {
+            const response = await fetch(`/autori/search?q=${encodeURIComponent(query)}`);
+            if (!response.ok) {
+                clearSuggestions();
+                return;
+            }
+
+            const data = await response.json();
+
+            if (authorInput.value.trim() === lastQuery) {
+                showSuggestions(data);
+            }
+        } catch (error) {
+            clearSuggestions();
         }
     }
 
-    nascitaInput.addEventListener("change", validaDateAutore);
-    morteInput.addEventListener("change", validaDateAutore);
+    authorInput.addEventListener("input", () => {
+        authorIdInput.value = "";
 
-    removeBtn.addEventListener("click", function () {
-        const wrapper = row.parentElement;
-        if (wrapper && wrapper.querySelectorAll(".autore-row").length > 1) {
-            row.remove();
-        }
+        clearTimeout(debounceTimer);
+
+        const query = authorInput.value.trim();
+
+        debounceTimer = setTimeout(() => {
+            fetchAuthors(query);
+        }, 400);
     });
 
-    validaDateAutore();
-    return row;
-}
-
-
-if (aggiungiAutoreBtn) {
-    aggiungiAutoreBtn.addEventListener("click", function () {
-        if (aggiungiAutoriWrapper) {
-            aggiungiAutoriWrapper.appendChild(creaAutoreRow());
+    document.addEventListener("click", (event) => {
+        if (!event.target.closest(".autore-search-box")) {
+            clearSuggestions();
         }
     });
-}
-
-if (modificaAutoreBtn) {
-    modificaAutoreBtn.addEventListener("click", function () {
-        if (modificaAutoriWrapper) {
-            modificaAutoriWrapper.appendChild(creaAutoreRow());
-        }
-    });
-}
+});

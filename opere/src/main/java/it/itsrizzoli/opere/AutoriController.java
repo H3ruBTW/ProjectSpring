@@ -25,12 +25,7 @@ public class AutoriController {
         return "autori_admin";
     }
 
-    @PostMapping(value = "/all")
-    String getAuthorsByName(Model model, @RequestParam String src){
-        model.addAttribute("src", src);
-        model.addAttribute("autori", autoriDAO.findAuthorsByLike(src));
-        return "autori_admin";
-    }
+     
 
     @GetMapping(value = "/auth_update")
     String getUpdateAPage(Model model, @RequestParam(name = "a")Integer id, Autori autori){
@@ -41,7 +36,7 @@ public class AutoriController {
     @PostMapping(value = "/auth_update")
     String updateAuthor(Model model, @Valid Autori autori, BindingResult br){
         if(autori.getDataMorte() != null && autori.getDataMorte().isBefore(autori.getDataNascita())){
-            model.addAttribute("err", "Data di morte è prima della data di nascita");
+            br.rejectValue("dataMorte", "err.dataMorte", "Data di morte è prima della data di nascita");
             return "/autori/auth_update";
         }
 

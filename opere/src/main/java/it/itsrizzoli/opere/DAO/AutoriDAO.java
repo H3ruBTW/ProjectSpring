@@ -11,4 +11,12 @@ import it.itsrizzoli.opere.Model.Autori;
 public interface AutoriDAO extends CrudRepository<Autori, Integer> {
     @Query("select a from Autori a where concat(a.nome,' ', a.cognome) like %:src%")
     List<Autori> findAuthorsByLike(@Param("src") String src);
+
+    @Query("""
+        SELECT a
+        FROM Autori a
+        WHERE LOWER(CONCAT(a.nome, ' ', a.cognome)) LIKE LOWER(CONCAT('%', :q, '%'))
+           OR LOWER(CONCAT(a.cognome, ' ', a.nome)) LIKE LOWER(CONCAT('%', :q, '%'))
+    """)
+    List<Autori> searchFullName(@Param("q") String q);
 }

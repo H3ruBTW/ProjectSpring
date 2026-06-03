@@ -13,15 +13,19 @@
 
                 <h2>Aggiungi autore</h2>
 
+                <p th:if="${#fields.hasErrors('nome')}" th:errors="*{nome}" style="color: red;"><br></p>
                 <label for="aggiungi-nome">Nome</label>
                 <input id="aggiungi-nome" th:field="*{nome}" type="text" required minlength="2" maxlength="50">
 
+                <p th:if="${#fields.hasErrors('cognome')}" th:errors="*{cognome}" style="color: red;"><br></p>
                 <label for="aggiungi-cognome">Cognome</label>
                 <input id="aggiungi-cognome" th:field="*{cognome}" type="text" required minlength="2" maxlength="50">
 
+                <p th:if="${#fields.hasErrors('dataNascita')}" th:errors="*{dataNascita}" style="color: red;"><br></p>
                 <label for="aggiungi-nascita">Data di nascita</label>
                 <input id="aggiungi-nascita" th:field="*{dataNascita}" type="date" required>
 
+                <p th:if="${#fields.hasErrors('dataMorte')}" th:errors="*{dataMorte}" style="color: red;"><br></p>
                 <label for="aggiungi-morte">Data di morte</label>
                 <input id="aggiungi-morte" th:field="*{dataMorte}" type="date">
 
