@@ -20,12 +20,11 @@ public class AutoriController {
     AutoriDAO autoriDAO;
 
     @GetMapping(value = "/all")
-    String getAuthors(Model model){
-        model.addAttribute("autori", autoriDAO.findAll());
+    String getAuthors(Model model, @RequestParam(name = "src", required = false, defaultValue = "") String src){
+        model.addAttribute("autori", autoriDAO.findByFullName(src));
+        model.addAttribute("src", src);
         return "autori_admin";
     }
-
-     
 
     @GetMapping(value = "/auth_update")
     String getUpdateAPage(Model model, @RequestParam(name = "a")Integer id, Autori autori){
@@ -37,11 +36,11 @@ public class AutoriController {
     String updateAuthor(Model model, @Valid Autori autori, BindingResult br){
         if(autori.getDataMorte() != null && autori.getDataMorte().isBefore(autori.getDataNascita())){
             br.rejectValue("dataMorte", "err.dataMorte", "Data di morte è prima della data di nascita");
-            return "/autori/auth_update";
+            return "redirect:/autori/auth_update";
         }
 
         if(br.hasErrors())
-            return "/autori/auth_update";
+            return "redirect:/autori/auth_update";
 
         autoriDAO.save(autori);
         return "redirect:/autori/all";
@@ -68,11 +67,11 @@ public class AutoriController {
     String addAuthor(Model model, @Valid Autori autori, BindingResult br){
         if(autori.getDataMorte() != null && autori.getDataMorte().isBefore(autori.getDataNascita())){
             model.addAttribute("err", "Data di morte è prima della data di nascita");
-            return "/autori/auth_add";
+            return "redirect:/autori/auth_add";
         }
 
         if(br.hasErrors())
-            return "/autori/auth_add";
+            return "redirect:/autori/auth_add";
 
         autoriDAO.save(autori);
         return "redirect:/autori/all";

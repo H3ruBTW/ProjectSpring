@@ -19,7 +19,7 @@ public class AutoriRestController {
     @GetMapping("/autori/search")
     @ResponseBody
     public List<AutoriSearch> searchAutori(@RequestParam("q") String q) {
-        return autoriDAO.searchFullName(q).stream()
+        return autoriDAO.findByFullName(q).stream()
             .map(a -> new AutoriSearch(a.getId(), a.getNome(), a.getCognome()))
             .toList();
     }

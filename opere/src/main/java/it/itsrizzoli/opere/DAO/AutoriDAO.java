@@ -18,5 +18,5 @@ public interface AutoriDAO extends CrudRepository<Autori, Integer> {
         WHERE LOWER(CONCAT(a.nome, ' ', a.cognome)) LIKE LOWER(CONCAT('%', :q, '%'))
            OR LOWER(CONCAT(a.cognome, ' ', a.nome)) LIKE LOWER(CONCAT('%', :q, '%'))
     """)
-    List<Autori> searchFullName(@Param("q") String q);
+    List<Autori> findByFullName(@Param("q") String q);
 }
