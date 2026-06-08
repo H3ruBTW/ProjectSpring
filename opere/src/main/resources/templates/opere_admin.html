@@ -5,17 +5,17 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Opere</title>
     <link href="/assets/css/opere_admin.css" rel="stylesheet">
-    <script src="/assets/js/opere_admin.js" defer></script>
+    <script src="/assets/js/search_bar.js" defer></script>
 </head>
 <body>
     <main class="main">
         <div class="main-opere">
-            <form method="post">
+            <form th:method="get">
                 <div class="filter">
                     <div class="add-search">
                         <div>
                             <label>Barra di ricerca</label>
-                            <input type="text" name="src">
+                            <input type="text" name="src" placeholder="Cerca opera..." th:value="${nome_o}">
                         </div>
                         <div>
                             <button id="search" type="submit">Applica filtri</button>
@@ -26,17 +26,16 @@
                     <div class="other-filters">
                         <div class="autore-search-box">
                             <label for="auth_src">Autore</label>
-                            <input type="text" id="auth_src" name="auth_src" autocomplete="off" placeholder="Cerca autore...">
-                            <input type="hidden" id="auth_id" name="auth_id">
+                            <input type="text" id="auth_src" name="auth_src" autocomplete="off" placeholder="Cerca autore..." th:value="${nome_a}">
                             <div id="autore-suggestions" class="autore-suggestions"></div>
                         </div>
                         <div>
                             <label>Anno Creazione da</label>
-                            <input type="number" name="annoda">
+                            <input type="number" name="annoda" th:value="${annoda}">
                         </div>
                         <div>
                             <label>Anno Creazione a</label>
-                            <input type="number" name="annoa">
+                            <input type="number" name="annoa" th:value="${annoa}">
                         </div>
                         
                     </div>

@@ -21,17 +21,20 @@ public class OpereController {
     OpereDAO opereDAO;
 
     @GetMapping(value = "/all")
-    String getAuthors(Model model){
-        model.addAttribute("opere", opereDAO.findAll());
+    String getAuthors(Model model, @RequestParam(name = "src", required = false, defaultValue = "") String src,
+    @RequestParam(name = "auth_src", required = false, defaultValue = "") String a_src,
+    @RequestParam(name = "annoda", required = false, defaultValue = "" + Integer.MIN_VALUE) Integer annoda,
+    @RequestParam(name = "annoa", required = false, defaultValue = "" + Integer.MAX_VALUE) Integer annoa){
+        model.addAttribute("opere", opereDAO.findByFilters(a_src, src, annoa, annoda));
+        model.addAttribute("nome_o", src);
+        model.addAttribute("nome_a", a_src);
+        if(annoda != Integer.MIN_VALUE)
+            model.addAttribute("annoda", annoda);
+
+        if(annoa != Integer.MAX_VALUE)
+            model.addAttribute("annoa", annoa);
         return "opere_admin";
     }
-
-    /*@PostMapping(value = "/all")
-    String getAuthorsByName(Model model, @RequestParam String src){
-        model.addAttribute("src", src);
-        model.addAttribute("autori",opereDAO.findOpereByLike(src));
-        return "opere_admin";
-    }*/
 
    /*@PostMapping(value = "/opere_update")
     String updateAuthor(Model model, @Valid Opere opere, BindingResult br){
