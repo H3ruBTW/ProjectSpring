@@ -20,6 +20,11 @@ public class OpereController {
     @Autowired
     OpereDAO opereDAO;
 
+    @GetMapping
+    String goToOpere(){
+        return "forward:/opere/all";
+    }
+
     @GetMapping(value = "/all")
     String getAuthors(Model model, @RequestParam(name = "src", required = false, defaultValue = "") String src,
     @RequestParam(name = "auth_src", required = false, defaultValue = "") String a_src,

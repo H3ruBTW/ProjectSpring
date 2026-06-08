@@ -19,6 +19,11 @@ public class AutoriController {
     @Autowired
     AutoriDAO autoriDAO;
 
+    @GetMapping
+    String goToAuthors(){
+        return "forward:/autori/all";
+    }
+
     @GetMapping(value = "/all")
     String getAuthors(Model model, @RequestParam(name = "src", required = false, defaultValue = "") String src){
         model.addAttribute("autori", autoriDAO.findByFullName(src));
